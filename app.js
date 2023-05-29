@@ -10,7 +10,6 @@ const translateObject = async (lang) => {
     try {
         let ens = JSON.parse(JSON.stringify(en))
         const val = objectValueToText(ens)
-
         let arrayTranslated = []
         let finalArray = []
         const arrayOfArray = (array) => {
@@ -28,9 +27,10 @@ const translateObject = async (lang) => {
                 let result = await TranslateArray(fin, lang);
                 arrayTranslated = [...arrayTranslated, ...result]
             }
+        }else{
+            let result = await TranslateArray(val, lang);
+            arrayTranslated = result
         }
-        // console.log(arrayTranslated.length)
-        // console.log(finalArray.length)
         const obj = updateObject(ens, arrayTranslated)
         createJSONFile(obj, lang)
         console.log(lang, arrayTranslated.length)
